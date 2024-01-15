@@ -9,7 +9,6 @@ import os
 import warnings
 import traceback
 
-
 warnings.filterwarnings('ignore', category=UserWarning)
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'yolov7')))
@@ -28,6 +27,7 @@ class Detector():
     This class is a wrapper for the YOLOv7 model.
 
     """
+
     def __init__(self, weights_path='yolov7.pt', conf_thres=0.7, iou_thres=0.45, img_size=640):
 
         # Args
@@ -65,7 +65,8 @@ class Detector():
         except Exception as e:
             raise Exception(f"Could not trace model, {traceback.format_exc()}")
 
-        self.names = self.detector_model.module.names if hasattr(self.detector_model, 'module') else self.detector_model.names
+        self.names = self.detector_model.module.names if hasattr(self.detector_model,
+                                                                 'module') else self.detector_model.names
 
         if self.names is None:
             raise Exception("Names not found in model")
@@ -88,20 +89,32 @@ class Detector():
 
         return img, im0
 
-    def calculateDetections(self, image, view_img=False):
+    def calculateDetections(self, image, view_img=False, download_path=None):
+        """
+        This function takes an image and returns a list of detections. Each detection is a dictionary with the following keys:
+        - class: The class of the detection
+        - confidence: The confidence of the detection
+        - bbox: The bounding box of the detection in the format [x1, y1, x2, y2]
+
+        :param image: PIL image
+        :param view_img: bool, whether to show the image with the detections
+        :param download_path: string pointing to download path. Leave as None if not needed (make sure to add extension, eg .jpg)
+        :return: list of dicts of the results.
+        """
+
         # convert to numpy
-        img, im0 = self.preprocess_image(image)
+        img, im0 = self.preprocess_image(image)  # im0 is the original image converted to numpy
 
         with torch.no_grad():
             pred = self.detector_model(img)[0]
 
         pred = non_max_suppression(pred, self.conf_thres, self.iou_thres, classes=0, agnostic=False)
 
-        dets = self.process_detections(pred, im0, img, view_img=view_img)
+        dets = self.process_detections(pred, im0, img, view_img=view_img, download_path=download_path)
 
         return dets
 
-    def process_detections(self, pred, im0s, img, view_img):
+    def process_detections(self, pred, im0s, img, view_img, download_path=None):
         s = ''
         dets = []
         # Process detections
@@ -131,10 +144,14 @@ class Detector():
                         plot_one_box(xyxy, im0, label=label, color=self.colors[int(cls)], line_thickness=1)
 
             # Stream results
+            if download_path or view_img:
+                det_img = recolor_image(resize_image(im0))
+
             if view_img:
-                cv2.imshow('image', recolor_image(resize_image(im0)))
+                cv2.imshow('image', det_img)
                 cv2.waitKey()
 
+            if download_path:
+                cv2.imwrite(download_path, det_img)
+
         return dets
-
-
