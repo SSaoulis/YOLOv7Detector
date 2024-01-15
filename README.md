@@ -6,13 +6,13 @@ Currently it only supports images, on CPU.
 ## Installation
 
 ```bash
-pip install YOLOv7Detector
+pip install f
 ```
 
 ## Usage
 
 ```python
-from YOLOv7Detector.Detector import Detector as det
+from YOLOv7Detector import Detector as det
 from PIL import Image
 
 
