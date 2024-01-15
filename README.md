@@ -43,3 +43,6 @@ This returns a list of dictionaries, each dictionary is formatted as follows:
 ```
 
 where `bbox` is a list of `[x1, y1, x2, y2]` coordinates of the bounding box.
+With view_img=True, the image with bounding boxes will be displayed as such:
+
+![image](test_images/test_4.jpg)
