@@ -1,4 +1,4 @@
-from YOLOv7Detector.Detector import Detector as det
+from YOLOv7Detector import Detector as det
 from PIL import Image
 
 
