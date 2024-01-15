@@ -5,8 +5,12 @@ Currently it only supports images, on CPU.
 
 ## Installation
 
+The package is hosted on test.pypi.org, so you need to add the extra index url to your pip install command.
+This is because it pulls the YOLOv7Detector from test.pypi, but the dependencies are hosted on pypi.org, so we get
+them from there.
+
 ```bash
-pip install f
+pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ YOLOv7Detector==0.0.3
 ```
 
 ## Usage
