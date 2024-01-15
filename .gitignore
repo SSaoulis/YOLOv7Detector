@@ -1,3 +1,8 @@
 /venv/
 /traced_model.pt
 /yolov7.pt
+/build/
+/dist/
+__pycache__/
+.pytest_cache/
+/YOLOv7Detector.egg-info/
