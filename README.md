@@ -14,7 +14,8 @@ pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/
 ```
 
 ## Usage
-
+You must download a model from the [YOLOv7](https://github.com/WongKinYiu/yolov7?tab=readme-ov-file#performance) page, 
+and place it in the root directory of this project. Then you can use the following code to run inference on an image:
 ```python
 from YOLOv7Detector import Detector as det
 from PIL import Image
