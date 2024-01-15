@@ -5,16 +5,14 @@ Currently it only supports images, on CPU.
 
 ## Installation
 
-The package is hosted on test.pypi.org, so you need to add the extra index url to your pip install command.
-This is because it pulls the YOLOv7Detector from test.pypi, but the dependencies are hosted on pypi.org, so we get
-them from there.
+The package is hosted on [pypi](https://pypi.org/project/YOLOv7Detector/), so you can install it with pip:
 
 ```bash
-pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ YOLOv7Detector==0.0.3
+pip install YOLOv7Detector
 ```
 
 ## Usage
-You must download a model from the [YOLOv7](https://github.com/WongKinYiu/yolov7?tab=readme-ov-file#performance) page, 
+You must download a model from the [yolov7](https://github.com/WongKinYiu/yolov7?tab=readme-ov-file#performance) project page, 
 and place it in the root directory of this project. Then you can use the following code to run inference on an image:
 ```python
 from YOLOv7Detector import Detector as det
@@ -51,6 +49,6 @@ This returns a list of dictionaries, each dictionary is formatted as follows:
 ```
 
 where `bbox` is a list of `[x1, y1, x2, y2]` coordinates of the bounding box.
-With view_img=True, the image with bounding boxes will be displayed as such:
+With `view_img=True`, the image with bounding boxes will be displayed as such:
 
 ![image](test_images/test_4_result.jpg)
